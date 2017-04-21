@@ -1,0 +1,91 @@
+This article explains the new features in Python 3.6, compared to 3.5.
+New library modules:
+ class="simple">
+ class="reference internal" href="../library/secrets.html#module-secrets" title="secrets: Generate secure random numbers for managing secrets."> class="xref py py-mod docutils literal"> class="pre">secrets:  class="reference internal" href="#whatsnew36-pep506">>PEP 506 ; Adding A Secrets Module To The Standard Library.
+CPython implementation improvements:
+ class="simple">
+The  class="reference internal" href="../library/stdtypes.html#typesmapping">>dict type has been reimplemented to use
+a  class="reference internal" href="#whatsnew36-compactdict">>more compact representation
+based on  class="reference external" href="https://mail.python.org/pipermail/python-dev/2012-December/123028.html">a proposal by Raymond Hettinger
+and similar to the  class="reference external" href="https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html">PyPy dict implementation.  This resulted in dictionaries
+using 20% to 25% less memory when compared to Python 3.5.
+Customization of class creation has been simplified with the
+ class="reference internal" href="#whatsnew36-pep487">>new protocol.
+The class attribute definition order is
+ class="reference internal" href="#whatsnew36-pep520">>now preserved.
+The order of elements in  class="docutils literal"> class="pre">**kwargs now
+ class="reference internal" href="#whatsnew36-pep468">>corresponds to the order in which keyword
+arguments were passed to the function.
+DTrace and SystemTap  class="reference internal" href="#whatsnew36-tracing">>probing support has
+been added.
+The new  class="reference internal" href="#whatsnew36-pythonmalloc">>PYTHONMALLOC environment variable
+can now be used to debug the interpreter memory allocation and access
+errors.
+Significant improvements in the standard library:
+ class="simple">
+The  class="reference internal" href="../library/asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O, event loop, coroutines and tasks."> class="xref py py-mod docutils literal"> class="pre">asyncio module has received new features, significant
+usability and performance improvements, and a fair amount of bug fixes.
+Starting with Python 3.6 the  class="docutils literal"> class="pre">asyncio module is no longer provisional
+and its API is considered stable.
+A new  class="reference internal" href="#whatsnew36-pep519">>file system path protocol has been
+implemented to support  class="reference internal" href="../glossary.html#term-path-like-object"> class="xref std std-term">path-like objects.
+All standard library functions operating on paths have been updated to
+work with the new protocol.
+The  class="reference internal" href="../library/datetime.html#module-datetime" title="datetime: Basic date and time types."> class="xref py py-mod docutils literal"> class="pre">datetime module has gained support for
+ class="reference internal" href="#whatsnew36-pep495">>Local Time Disambiguation.
+The  class="reference internal" href="../library/typing.html#module-typing" title="typing: Support for type hints (see PEP 484)."> class="xref py py-mod docutils literal"> class="pre">typing module received a number of
+ class="reference internal" href="#whatsnew36-typing">>improvements.
+The  class="reference internal" href="../library/tracemalloc.html#module-tracemalloc" title="tracemalloc: Trace memory allocations."> class="xref py py-mod docutils literal"> class="pre">tracemalloc module has been significantly reworked
+and is now used to provide better output for  class="reference internal" href="../library/exceptions.html#ResourceWarning" title="ResourceWarning"> class="xref py py-exc docutils literal"> class="pre">ResourceWarning
+as well as provide better diagnostics for memory allocation errors.
+See the  class="reference internal" href="#whatsnew36-pythonmalloc">>PYTHONMALLOC section for more
+information.
+Security improvements:
+ class="simple">
+The new  class="reference internal" href="../library/secrets.html#module-secrets" title="secrets: Generate secure random numbers for managing secrets."> class="xref py py-mod docutils literal"> class="pre">secrets module has been added to simplify the generation of
+cryptographically strong pseudo-random numbers suitable for
+managing secrets such as account authentication, tokens, and similar.
+On Linux,  class="reference internal" href="../library/os.html#os.urandom" title="os.urandom"> class="xref py py-func docutils literal"> class="pre">os.urandom() now blocks until the system urandom entropy
+pool is initialized to increase the security. See the  class="target" id="index-1"> class="pep reference external" href="https://www.python.org/dev/peps/pep-0524">PEP 524 for the
+rationale.
+The  class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."> class="xref py py-mod docutils literal"> class="pre">hashlib and  class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"> class="xref py py-mod docutils literal"> class="pre">ssl modules now support OpenSSL 1.1.0.
+The default settings and feature set of the  class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"> class="xref py py-mod docutils literal"> class="pre">ssl module have been
+improved.
+The  class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."> class="xref py py-mod docutils literal"> class="pre">hashlib module received support for the BLAKE2, SHA-3 and SHAKE
+hash algorithms and the  class="reference internal" href="../library/hashlib.html#hashlib.scrypt" title="hashlib.scrypt"> class="xref py py-func docutils literal"> class="pre">scrypt() key derivation function.
+Windows improvements:
+ class="simple">
+ class="reference internal" href="#whatsnew36-pep529">>PEP 528 and  class="reference internal" href="#whatsnew36-pep529">>PEP 529,
+Windows filesystem and console encoding changed to UTF-8.
+The  class="docutils literal"> class="pre">py.exe launcher, when used interactively, no longer prefers
+Python 2 over Python 3 when the user doesn&#8217;t specify a version (via
+command line arguments or a config file).  Handling of shebang lines
+remains unchanged - &#8220;python&#8221; refers to Python 2 in that case.
+ class="docutils literal"> class="pre">python.exe and  class="docutils literal"> class="pre">pythonw.exe have been marked as long-path aware,
+which means that the 260 character path limit may no longer apply.
+See  class="reference internal" href="../using/windows.html#max-path">>removing the MAX_PATH limitation for details.
+A  class="docutils literal"> class="pre">._pth file can be added to force isolated mode and fully specify
+all search paths to avoid registry and environment lookup. See
+ class="reference internal" href="../using/windows.html#finding-modules">>the documentation for more information.
+A  class="docutils literal"> class="pre">python36.zip file now works as a landmark to infer
+ class="target" id="index-2"> class="reference internal" href="../using/cmdline.html#envvar-PYTHONHOME"> class="xref std std-envvar docutils literal"> class="pre">PYTHONHOME. See  class="reference internal" href="../using/windows.html#finding-modules">>the documentation for
+more information.
+New Features class="headerlink" href="#new-features" title="Permalink to this headline">¶
+ class="section" id="pep-498-formatted-string-literals">
+ id="whatsnew36-pep498">PEP 498: Formatted string literals class="headerlink" href="#pep-498-formatted-string-literals" title="Permalink to this headline">¶
+ class="target" id="index-3"> class="pep reference external" href="https://www.python.org/dev/peps/pep-0498">PEP 498 introduces a new kind of string literals: f-strings, or
+ class="reference internal" href="../reference/lexical_analysis.html#f-strings">>formatted string literals.
+Formatted string literals are prefixed with  class="docutils literal"> class="pre">'f' and are similar to
+the format strings accepted by  class="reference internal" href="../library/stdtypes.html#str.format" title="str.format"> class="xref py py-meth docutils literal"> class="pre">str.format().  They contain replacement
+fields surrounded by curly braces.  The replacement fields are expressions,
+which are evaluated at run time, and then formatted using the
+Just as for function annotations, the Python interpreter does not attach any
+particular meaning to variable annotations and only stores them in the
+ class="docutils literal"> class="pre">__annotations__ attribute of a class or module.
+In contrast to variable declarations in statically typed languages,
+the goal of annotation syntax is to provide an easy way to specify structured
+type metadata for third party tools and libraries via the abstract syntax tree
+and the  class="docutils literal"> class="pre">__annotations__ attribute.
+Single underscores are allowed between digits and after any base
+specifier.  Leading, trailing, or multiple underscores in a row are not
+allowed.
